@@ -3,6 +3,10 @@ const app = express();
 const port = process.env.PORT || 4000;
 const cors = require("cors");
 const helmet = require("helmet");
+const dotenv = require("dotenv");
+
+// Initialize .env file
+dotenv.config();
 
 // App Usage
 app.use(express.json());

@@ -1,5 +1,3 @@
-"use strict";
-
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");
@@ -9,6 +7,25 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.json")[env];
 const db = {};
 
+const dbConfig =
+  process.env.NODE_ENV !== "production"
+    ? {
+        host: process.env.MYSQL_DEV_HOST,
+        user: process.env.MYSQL_DEV_USERNAME,
+        password: process.env.MYSQL_DEV_PASSWORD,
+        database: process.env.MYSQL_DEV_DATABASE,
+        dialect: "mysql",
+      }
+    : {
+        host: process.env.MYSQL_PROD_HOST,
+        user: process.env.MYSQL_PROD_USERNAME,
+        password: process.env.MYSQL_PROD_PASSWORD,
+        database: process.env.MYSQL_PROD_DATABASE,
+        dialect: "mysql",
+      };
+
+console.log(dbConfig);
+
 let sequelize;
 if (config.use_env_variable) {
   createDB();
@@ -16,10 +33,10 @@ if (config.use_env_variable) {
 } else {
   createDB();
   sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
+    dbConfig.database,
+    dbConfig.user,
+    dbConfig.password,
+    dbConfig
   );
 }
 
@@ -47,21 +64,13 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 function createDB() {
-  const { host, username, password, database } = config;
-  console.log(config);
-
-  const db = mysql.createConnection({
-    host: host,
-    user: username,
-    password: password,
-    database: database,
-  });
+  const db = mysql.createConnection(dbConfig);
 
   db.connect((err) => {
     if (err) {
       throw err;
     }
-    const sql = `CREATE DATABASE IF NOT EXISTS ${database}`;
+    const sql = `CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`;
     db.query(sql, (err) => {
       if (err) throw err;
     });
