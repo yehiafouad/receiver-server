@@ -48,6 +48,7 @@ db.Sequelize = Sequelize;
 
 function createDB() {
   const { host, username, password, database } = config;
+  console.log(config);
 
   const db = mysql.createConnection({
     host: host,
