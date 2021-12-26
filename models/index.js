@@ -50,11 +50,11 @@ function createDB() {
   const { host, username, password, database } = config;
   console.log(config);
 
-  const db = mysql.createConnection({
-    host: host,
-    user: username,
-    password: password,
-  });
+  const dbUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.MYSQL_URL
+      : "mysql://" + username + ":" + password + "@" + host + "/" + database;
+  const db = mysql.createConnection(dbUrl);
 
   db.connect((err) => {
     if (err) {
