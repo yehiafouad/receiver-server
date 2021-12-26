@@ -68,7 +68,7 @@ function createDB() {
 
   db.connect((err) => {
     if (err) {
-      throw err;
+      throw "ERRORRRRR ===> " + err;
     }
     const sql = `CREATE DATABASE IF NOT EXISTS ${dbConfig.database}`;
     db.query(sql, (err) => {
