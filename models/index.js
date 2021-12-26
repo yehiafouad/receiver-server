@@ -29,6 +29,7 @@ console.log(dbConfig);
 let sequelize;
 if (config.use_env_variable) {
   process.env.NODE_ENV !== "production" && createDB();
+  console.log("here");
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   process.env.NODE_ENV !== "production" && createDB();
