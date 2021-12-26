@@ -1,7 +1,3 @@
-// const userSchema = ;
-
-// const User = sequelize.define("User", userSchema);
-
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define("User", {
     name: {
