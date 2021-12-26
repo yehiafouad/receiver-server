@@ -7,10 +7,10 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
+    "username": "b6f5035661aed2",
+    "password": "195e515e",
     "database": "microservices_task",
-    "host": "127.0.0.1",
+    "host": "eu-cdbr-west-02.cleardb.net/heroku_f0bc6fd7e573218",
     "dialect": "mysql"
   }
 }
