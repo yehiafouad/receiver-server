@@ -35,6 +35,6 @@ const createUserQueue = async (queueName, channel) => {
     async (msg) => {
       await UserHandler.createUserHandler(JSON.parse(msg.content.toString()));
     },
-    { noAck: true }
+    { autoAck: false }
   );
 };
