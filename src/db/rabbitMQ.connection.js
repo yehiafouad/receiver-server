@@ -3,7 +3,7 @@ const UserHandler = require("../handler/UserHandler");
 
 // Recieve from rabbitMQ queues and payloads
 ampq.connect(
-  process.env.NODE_ENV === "development"
+  process.env.NODE_ENV !== "production"
     ? "amqp://localhost"
     : process.env.RABBITMQ_URL,
   (err, connection) => {
